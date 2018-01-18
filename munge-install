@@ -1,0 +1,65 @@
+
+
+vi /etc/passwd
+
+muge
+
+munge
+
+grep munge /etc/group
+
+grep munge /etc/passwd
+
+chown -R munge:munge /var/log/munge
+
+ls -ld /var/log/munge
+
+chmod 700 /var/log/munge
+
+ls -l /var/log/munge
+David Parks [8:26 AM]:
+
+Securing the Installation
+
+
+On most platforms, the munged daemon does not require root privileges. If possible, you should run the daemon as a non-privileged user. This can be controlled by the init script as detailed in the Starting the Daemon section below.
+
+
+By default, the munged daemon uses the following system directories:
+
+
+    /etc/munge/ 
+
+
+    This directory contains the daemon's secret key. The recommended permissions for it are 0700. 
+
+
+    /var/lib/munge/ 
+
+
+    This directory contains the daemon's PRNG seed file. It is also where the daemon creates pipes for authenticating clients via file-descriptor-passing. If the file-descriptor-passing authentication method is being used, this directory must allow execute permissions for all; however, it should not expose read permissions. The recommended permissions for it are 0711. 
+
+
+    /var/log/munge/ 
+
+
+    This directory contains the daemon's log file. The recommended permissions for it are 0700. 
+
+
+    /var/run/munge/ 
+
+
+    This directory contains the Unix domain socket for clients to communicate with the daemon. It also contains the daemon's pid file. This directory must allow execute permissions for all. The recommended permissions for it are 0755. 
+
+
+These directories must be owned by the user that the munged daemon will run as. They cannot allow write permissions for group or other (unless the sticky-bit is set). In addition, all of their parent directories in the path on up to the root directory must be owned by either root or the user that the munged daemon will run as. None of them can allow write permissions for group or other (unless the sticky-bit is set). 
+David Parks [8:29 AM]:
+
+grep munge /etc/group /etc/passwd
+David Parks [8:31 AM]:
+
+:488:
+
+groupadd -g 488 munge
+
+useradd -g munge -u 488 munge
