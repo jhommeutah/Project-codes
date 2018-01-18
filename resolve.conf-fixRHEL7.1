@@ -1,0 +1,5 @@
+# /bin/cp -p /etc/resolv.conf /etc/resolv.conf_$(date +%Y%m%d_%H%M)
+# vi /etc/resolv.conf
+# /bin/cp -p /etc/resolv.conf /etc/resolv.conf_save
+# systemctl stop NetworkManager
+# systemctl disable NetworkManager
